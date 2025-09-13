@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Day 22 — Semantic Blog Layout</title>
+  <meta name="description" content="Simple responsive blog layout using semantic HTML5 elements: header, nav, main, article, section, aside, footer">
+  <style>
+    /* Mobile-first, simple and clean styles */
+    :root{
+      --max-width:1200px;
+      --accent:#0b5fff;
+      --muted:#6b7280;
+      --gap:1rem;
+      --radius:12px;
+      --bg:#f7f7fb;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:#111827;
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:2rem 1rem;
+      display:flex;
+      justify-content:center;
+    }
+    .container{max-width:var(--max-width);width:100%;}
+
+    /* Skip link for keyboard users */
+    .skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{left:1rem;top:1rem;width:auto;height:auto;padding:.5rem .75rem;background:#000;color:#fff;border-radius:6px}
+
+    header.site-header{
+      display:flex;align-items:center;justify-content:space-between;gap:var(--gap);
+      margin-bottom:1.25rem;
+    }
+    .brand{display:flex;align-items:center;gap:.75rem}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+    .site-title{font-size:1.125rem;font-weight:700;margin:0}
+    .site-tag{font-size:.875rem;color:var(--muted);margin:0}
+
+    nav.main-nav ul{display:flex;gap:.75rem;list-style:none;padding:0;margin:0}
+    nav.main-nav a{display:inline-block;padding:.45rem .65rem;border-radius:8px;text-decoration:none;color:inherit}
+    nav.main-nav a:hover{background:rgba(0,0,0,.05)}
+
+    .layout{display:grid;grid-template-columns:1fr;gap:1rem}
+
+    /* Blog content area */
+    main{display:grid;grid-template-columns:1fr;gap:1rem}
+
+    .hero{
+      background:#fff;border-radius:var(--radius);padding:1rem;box-shadow:0 6px 18px rgba(16,24,40,.06)
+    }
+    .hero h2{margin:.25rem 0 .5rem 0}
+    .hero p{margin:0;color:var(--muted)}
+
+    .posts{display:grid;gap:var(--gap)}
+    article.post{background:#fff;padding:1rem;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,.04)}
+    article.post header{display:flex;flex-direction:column;gap:.25rem;margin-bottom:.5rem}
+    .meta{font-size:.875rem;color:var(--muted)}
+    .excerpt{margin:0}
+
+    aside.sidebar{background:#fff;padding:1rem;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,.04)}
+    .widget{margin-bottom:1rem}
+    .tag-list{display:flex;flex-wrap:wrap;gap:.5rem}
+    .tag{font-size:.85rem;padding:.25rem .5rem;border-radius:999px;background:rgba(11,95,255,.09);color:var(--accent)}
+
+    footer.site-footer{margin-top:1rem;text-align:center;color:var(--muted);font-size:.9rem}
+
+    /* Desktop layout */
+    @media(min-width:900px){
+      .layout{grid-template-columns:2fr 360px}
+      main{grid-column:1/2}
+      aside.sidebar{grid-column:2/3}
+      .posts{grid-template-columns:repeat(2,1fr);gap:1rem}
+    }
+
+    /* small utility */
+    .read-more{display:inline-block;margin-top:.5rem;text-decoration:none;font-weight:600}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="container">
+
+    <header class="site-header" role="banner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">B</div>
+        <div>
+          <h1 class="site-title">BlogBox</h1>
+          <p class="site-tag">A daily dose of coding, design & coffee</p>
+        </div>
+      </div>
+
+      <nav class="main-nav" role="navigation" aria-label="Main navigation">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Articles</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="layout">
+      <main id="main" role="main">
+
+        <section class="hero" aria-labelledby="hero-heading">
+          <h2 id="hero-heading">Latest posts</h2>
+          <p>Curated picks and latest tutorials to help you build better projects.</p>
+        </section>
+
+        <section class="posts" aria-label="Blog posts">
+
+          <!-- Article 1 -->
+          <article class="post" aria-labelledby="post-1-title">
+            <header>
+              <h3 id="post-1-title">Semantic HTML: Why it matters and how to use it</h3>
+              <p class="meta">Sep 12, 2025 • 6 min read • <span>HTML</span></p>
+            </header>
+            <section>
+              <p class="excerpt">Semantic elements give your markup meaning and improve accessibility, SEO and maintainability. Here's a practical guide to the most useful elements.</p>
+              <a class="read-more" href="#">Read article →</a>
+            </section>
+            <footer class="post-footer" aria-hidden="true"></footer>
+          </article>
+
+          <!-- Article 2 -->
+          <article class="post" aria-labelledby="post-2-title">
+            <header>
+              <h3 id="post-2-title">Responsive layouts with CSS Grid — a quickstart</h3>
+              <p class="meta">Sep 10, 2025 • 8 min read • <span>CSS</span></p>
+            </header>
+            <section>
+              <p class="excerpt">Learn how to use CSS Grid to create fluid, responsive layouts that adapt to different screen sizes with minimal media queries.</p>
+              <a class="read-more" href="#">Read article →</a>
+            </section>
+          </article>
+
+          <!-- You can duplicate articles to add more -->
+
+        </section>
+
+      </main>
+
+      <aside class="sidebar" role="complementary" aria-label="Sidebar">
+        <div class="widget">
+          <h4>About the author</h4>
+          <p class="meta">Hi, I'm Varun — building things and writing about web dev. I post small practical tutorials daily.</p>
+        </div>
+
+        <div class="widget">
+          <h4>Search</h4>
+          <form role="search" aria-label="Search site">
+            <label for="q" class="skip-link">Search</label>
+            <input id="q" name="q" type="search" placeholder="Search articles…" style="width:100%;padding:.5rem;border-radius:8px;border:1px solid #e6e6ef">
+          </form>
+        </div>
+
+        <div class="widget">
+          <h4>Popular tags</h4>
+          <div class="tag-list">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Projects</span>
+          </div>
+        </div>
+
+        <div class="widget">
+          <h4>Subscribe</h4>
+          <form>
+            <input aria-label="Email" type="email" placeholder="you@example.com" style="width:100%;padding:.5rem;border-radius:8px;border:1px solid #e6e6ef;margin-bottom:.5rem">
+            <button type="submit" style="width:100%;padding:.5rem;border-radius:8px;border:0;background:var(--accent);color:#fff;font-weight:600">Subscribe</button>
+          </form>
+        </div>
+
+      </aside>
+    </div>
+
+    <footer class="site-footer" role="contentinfo">
+      <p>© 2025 BlogBox — Built with semantic HTML. Follow on <a href="#">Twitter</a> · <a href="#">GitHub</a></p>
+    </footer>
+
+  </div>
+</body>
+</html>
